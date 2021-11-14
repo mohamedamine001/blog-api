@@ -34,8 +34,8 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (Exception $e, $request) {
+            return response()->json(["status" => "Unauthorized access", "message" => "You are not allowed to access the API."], 401);
         });
     }
 }

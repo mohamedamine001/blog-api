@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Facade\FlareClient\Http\Exceptions\NotFound;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
