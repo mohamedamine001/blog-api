@@ -13,7 +13,24 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+/*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+*/
+
+Route::prefix('user')->group(function () {
+
+    Route::post('register', [UserController::class, 'register']);
+    Route::post('login', [UserController::class, 'login']);
+
+    // passport auth api
+    Route::middleware(['auth:api'])->group(function () {
+        Route::get('/', [UserController::class, 'user']);
+        Route::get('logout', [UserController::class, 'logout']);
+
+        // posts resource route
+        Route::resource('posts', PostsController::class);
+    });
+
 });
