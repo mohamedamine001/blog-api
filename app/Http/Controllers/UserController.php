@@ -7,7 +7,9 @@ use Facade\FlareClient\Http\Exceptions\NotFound;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController extends Controller
 {

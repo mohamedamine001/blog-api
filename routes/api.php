@@ -32,7 +32,9 @@ Route::prefix('user')->group(function () {
         Route::get('logout', [UserController::class, 'logout']);
 
         // posts resource route
-        Route::resource('posts', PostsController::class);
+        Route::resource('posts', PostController::class);
+        // comments resource route
+        Route::resource('comments', CommentController::class);
     });
 
 });
