@@ -64,14 +64,18 @@ class UserController extends Controller
 
         try {
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-                $user = Auth::user();
-                $token = $user->createToken('token')->accessToken;
+                $user   = Auth::user();
+                $token  = $user->createToken('token')->accessToken;
+                $id     = $user->id;
+                $first_name     = $user->first_name;
                 return response()->json(
                     [
-                        "status" => "success",
-                        "error" => false,
+                        "status"  => "success",
+                        "error"   => false,
                         "message" => "Success! you are logged in.",
-                        "token" => $token,
+                        "token"   => $token,
+                        "id"      => $id,
+                        "first_name" => $first_name
                     ]
                 );
             }

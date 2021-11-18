@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('id', 'desc')->with('user')->get();
         return response()->json(["status" => "success", "error" => false, "count" => count($posts), "data" => $posts],200);
     }
 

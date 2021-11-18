@@ -16,9 +16,14 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $comments = Auth::user()->comments;
+       //$comments = Auth::user()->comments;
+         $comments = Comment::where('post_id', $request->post_id)
+                              ->with('user')
+                              ->orderBy('id', 'desc')
+                              ->get();
+        
         return response()->json(["status" => "success", "error" => false, "count" => count($comments), "data" => $comments],200);
     
     }
