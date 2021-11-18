@@ -16,6 +16,27 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @OA\Get(
+     *      path="/user/comments/post_id={post_id}",
+     *      operationId="getCommentsByPostId",
+     *      tags={"Comments"},
+
+     *      summary="Get List Of Comments by post id",
+     *      description="Returns all comment By post Id",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *  )
+     */
     public function index(Request $request)
     {
        //$comments = Auth::user()->comments;
@@ -43,6 +64,35 @@ class CommentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @OA\Post(
+     *      path="/user/comments",
+     *      operationId="addingNewComment",
+     *      tags={"addComment"},
+
+     *      summary="Adding Comment",
+     *      description="Adding a new Comment",
+     *      @OA\Response(
+     *          response=201,
+     *          description="Comment Added Successfully",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Validation Errors",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
      */
     public function store(Request $request)
     {
@@ -73,6 +123,40 @@ class CommentController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+
+     /**
+     * @OA\Get(
+     *      path="/user/comments/{id}",
+     *      operationId="getCommentByID",
+     *      tags={"Comment"},
+
+     *      summary="Get Comment by ID",
+     *      description="Returns Comment by its id",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *       @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *          type="integer"
+     *       )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
      */
     public function show($id)
     {
@@ -113,6 +197,40 @@ class CommentController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+
+     /**
+     * @OA\Delete(
+     *      path="/user/comments/{id}",
+     *      operationId="deleteComment",
+     *      tags={"Comment"},
+
+     *      summary="Delete Comment",
+     *      description="Delete Comment By ID",
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *          type="integer"
+     *       )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
      */
     public function destroy($id)
     {
