@@ -16,6 +16,28 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     /**
+     * @OA\Get(
+     *      path="/user/posts",
+     *      operationId="getAllPosts",
+     *      tags={"POSTS"},
+
+     *      summary="Get List Of Posts",
+     *      description="Returns all posts",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *  )
+     */
     public function index()
     {
         $posts = Post::orderBy('id', 'desc')->with('user')->get();
@@ -37,6 +59,36 @@ class PostController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     */
+
+     /**
+     * @OA\Post(
+     *      path="/user/posts",
+     *      operationId="addingNewPost",
+     *      tags={"addPost"},
+
+     *      summary="Adding Post",
+     *      description="Adding a new Post",
+     *      @OA\Response(
+     *          response=201,
+     *          description="Post Added Successfully",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Validation Errors",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
      */
     public function store(Request $request)
     {
@@ -68,6 +120,40 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     /**
+     * @OA\Get(
+     *      path="/user/posts/{id}",
+     *      operationId="getPostByID",
+     *      tags={"Post"},
+
+     *      summary="Get Post by ID",
+     *      description="Returns Post by its id",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *       @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *          type="integer"
+     *       )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
+     */
     public function show($id)
     {
         $post = Post::with('user', 'comments')->findOrFail($id);
@@ -97,6 +183,51 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     /**
+     * @OA\Put(
+     *      path="/user/posts/{id}",
+     *      operationId="updatePost",
+     *      tags={"Post"},
+
+     *      summary="Update Post",
+     *      description="Post Updating",
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *          type="integer"
+     *       )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Validation Error",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
+     */
     public function update(Request $request, $id)
     {
         $post = Auth::user()->posts->find($id);
@@ -124,6 +255,40 @@ class PostController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+
+     /**
+     * @OA\Delete(
+     *      path="/user/posts/{id}",
+     *      operationId="deletePost",
+     *      tags={"Post"},
+
+     *      summary="Delete Post",
+     *      description="Delete Post By ID",
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *          type="integer"
+     *       )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
      */
     public function destroy($id)
     {

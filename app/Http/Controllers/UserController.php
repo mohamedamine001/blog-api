@@ -20,6 +20,32 @@ class UserController extends Controller
      * @return void
      */
 
+     /**
+     * @OA\Post(
+     *      path="/user/register",
+     *      operationId="userRegistration",
+     *      tags={"Register"},
+
+     *      summary="Register a new user",
+     *      description="Register a new user",
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Validation Errors : email already taken or field error or missed",
+     *      ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *  )
+     */
+
     public function register(Request $request) {
 
         $validator = Validator::make($request->all(), [
@@ -49,6 +75,30 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return void
+     */
+
+     /**
+     * @OA\Post(
+     *      path="/user",
+     *      operationId="userLogin",
+     *      tags={"Login"},
+
+     *      summary="User Login",
+     *      description="User login by email and password",
+     *      @OA\Response(
+     *          response=200,
+     *          description="LoggedIn",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      
+     *
+     * @OA\Response(
+     *      response=404,
+     *      description="Not found or Login Failed : Invalid Credentials"
+     *   ),
+     *  )
      */
 
     public function login(Request $request) {
@@ -91,6 +141,28 @@ class UserController extends Controller
      *
      * @return void
      */
+
+     /**
+     * @OA\Get(
+     *      path="/user",
+     *      operationId="getLoggedInUserData",
+     *      tags={"User"},
+
+     *      summary="Logged User Data Using Auth Token",
+     *      description="Returns Logged in user data using Auth Token",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *  )
+     */
     public function user() {
         try {
             $user = Auth::user();
@@ -107,6 +179,28 @@ class UserController extends Controller
     * @param Request $request
     * @return void
     */
+
+    /**
+     * @OA\Post(
+     *      path="/user/logout",
+     *      operationId="userLogout",
+     *      tags={"logout"},
+
+     *      summary="User Logout",
+     *      description="Logout User and revoke assigned Token",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation : User Logged out",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="User already logged-out"
+     *      ),
+     *  )
+     */
     public function logout() {
 
         if(Auth::check()) {
