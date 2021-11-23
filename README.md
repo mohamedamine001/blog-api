@@ -49,6 +49,11 @@
 
 Then go to `http://127.0.0.1:8000/api/documentation` from your browser and see the api documentation.
 
+## API EndPoints : 
+![API LINKS](/screenshots/1.png)
+![API LINKS](/screenshots/2.png)
+![API LINKS](/screenshots/3.png)
+
 ## React project link (Frontend) : 
 
 [React Repository](https://github.com/mohamedamine001/blog-front).
